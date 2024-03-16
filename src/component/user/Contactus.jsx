@@ -8,7 +8,6 @@ function classNames(...classes) {
 
 const ContactUs = () => {
    const [agreed, setAgreed] = useState(false);
-
    return (
       <div className="isolate bg-white px-6 py-24 sm:py-32 lg:px-8">
          <div

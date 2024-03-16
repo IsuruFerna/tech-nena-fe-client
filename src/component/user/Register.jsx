@@ -1,5 +1,6 @@
-import { useState } from "react";
 import { Switch } from "@headlessui/react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function classNames(...classes) {
    return classes.filter(Boolean).join(" ");
@@ -7,7 +8,55 @@ function classNames(...classes) {
 
 const Register = () => {
    const [agreed, setAgreed] = useState(false);
+   const navigate = useNavigate();
 
+   useEffect(() => {
+      console.log("this is url: ", import.meta.env.VITE_APP_BE_URL);
+   });
+
+   const [formData, setFormData] = useState({
+      username: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+      name: "",
+      lastname: "",
+   });
+
+   const handleChange = (e) => {
+      setFormData({
+         ...formData,
+         [e.target.name]: e.target.value,
+      });
+   };
+
+   const handleSubmit = async (e) => {
+      e.preventDefault();
+      try {
+         // check password
+         if (formData.confirmPassword !== formData.password) {
+            throw new Error("Password missmatch");
+         }
+
+         const response = await fetch(
+            import.meta.env.VITE_APP_BE_URL + "/auth/register",
+            {
+               method: "POST",
+               body: JSON.stringify(formData),
+               headers: {
+                  "Content-Type": "application/json",
+               },
+            }
+         );
+
+         if (response.ok) {
+            navigate("/login");
+            console.log(response.json);
+         }
+      } catch (error) {
+         console.log(error);
+      }
+   };
    return (
       <div className="flex flex-col justify-center content-center h-svh">
          <div className="isolate bg-white px-6 lg:px-8">
@@ -32,7 +81,7 @@ const Register = () => {
                </p>
             </div>
             <form
-               action="#"
+               onSubmit={handleSubmit}
                method="POST"
                className="mx-auto mt-4 max-w-xl sm:mt-20"
             >
@@ -48,7 +97,8 @@ const Register = () => {
                         <input
                            required
                            type="text"
-                           name="first-name"
+                           onChange={handleChange}
+                           name="name"
                            id="first-name"
                            autoComplete="given-name"
                            className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -66,7 +116,8 @@ const Register = () => {
                         <input
                            required
                            type="text"
-                           name="last-name"
+                           onChange={handleChange}
+                           name="lastname"
                            id="last-name"
                            autoComplete="family-name"
                            className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -85,6 +136,7 @@ const Register = () => {
                         <input
                            required
                            type="text"
+                           onChange={handleChange}
                            name="username"
                            id="username"
                            autoComplete="username"
@@ -104,9 +156,50 @@ const Register = () => {
                         <input
                            required
                            type="email"
+                           onChange={handleChange}
                            name="email"
                            id="email"
                            autoComplete="email"
+                           className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                        />
+                     </div>
+                  </div>
+
+                  <div className="sm:col-span-2">
+                     <label
+                        htmlFor="email"
+                        className="block text-sm font-semibold leading-6 text-gray-900"
+                     >
+                        Password
+                     </label>
+                     <div className="mt-2.5">
+                        <input
+                           required
+                           type="password"
+                           onChange={handleChange}
+                           name="password"
+                           id="password"
+                           autoComplete="password"
+                           className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                        />
+                     </div>
+                  </div>
+
+                  <div className="sm:col-span-2">
+                     <label
+                        htmlFor="email"
+                        className="block text-sm font-semibold leading-6 text-gray-900"
+                     >
+                        Confirm password
+                     </label>
+                     <div className="mt-2.5">
+                        <input
+                           required
+                           type="password"
+                           onChange={handleChange}
+                           name="confirmPassword"
+                           id="confirmPassword"
+                           autoComplete="confirmPassword"
                            className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         />
                      </div>
