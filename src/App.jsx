@@ -6,6 +6,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./component/Home";
+import Register from "./component/user/Register";
 
 function App() {
    const [count, setCount] = useState(0);
@@ -15,6 +16,7 @@ function App() {
          <BrowserRouter>
             <Routes>
                <Route path="/" element={<Home />} />
+               <Route path="/register" element={<Register />} />
             </Routes>
          </BrowserRouter>
       </>
