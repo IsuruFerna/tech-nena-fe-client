@@ -11,4 +11,17 @@ body {
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
 
-/* NAVBAR */
+/* CAROUSEL HOME CATEGORIES */
+
+.react-multiple-carousel__arrow {
+  min-height: 0px !important;
+  min-width: 0px !important;
+  background: none !important;
+}
+
+.react-multiple-carousel__arrow::before {
+  color: black !important;
+}
+
+.react-multi-carousel-item {
+}
