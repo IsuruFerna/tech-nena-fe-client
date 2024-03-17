@@ -1,28 +1,22 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./component/Home";
-import Register from "./component/user/Register";
-import LoginPage from "./component/LoginPage";
+import NavbarCustom from "./component/NavbarCustom";
+import AccountBox from "./component/Login-Register/AccountBox";
 
 function App() {
-   const [count, setCount] = useState(0);
-
-   return (
-      <>
-         <BrowserRouter>
-            <Routes>
-               <Route path="/" element={<Home />} />
-               <Route path="/register" element={<Register />} />
-               <Route path="/login" element={<LoginPage />} />
-            </Routes>
-         </BrowserRouter>
-      </>
-   );
+  return (
+    <>
+      <BrowserRouter>
+        <NavbarCustom />
+        <Routes>
+          <Route path="/login" element={<AccountBox />} />
+          <Route path="/" element={<Home />} />
+        </Routes>
+      </BrowserRouter>
+    </>
+  );
 }
 
 export default App;
