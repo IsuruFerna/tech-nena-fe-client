@@ -2,18 +2,24 @@ import { Button, Container, Nav, Navbar } from "react-bootstrap";
 import "../assets/styles/nav.css";
 
 import logo from "../assets/img/logo.jpeg";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const NavbarCustom = () => {
   const location = useLocation();
+  const navigate = useNavigate();
 
   return (
     <Navbar
       expand="lg"
       className="bg-white-secondary shadow-btm p-0 sticky-top"
     >
-      <Container>
-        <Navbar.Brand href="#home">
+      <Container className="navbar-cont">
+        <Navbar.Brand
+          href="#home"
+          onClick={() => {
+            navigate("/");
+          }}
+        >
           <img
             src={logo}
             width="100"
@@ -25,7 +31,12 @@ const NavbarCustom = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mx-auto">
-            <Nav.Link active={location.pathname === "/" ? true : false}>
+            <Nav.Link
+              active={location.pathname === "/" ? true : false}
+              onClick={() => {
+                navigate("/");
+              }}
+            >
               <i className="bi bi-house-door-fill me-1"></i>
               Home
             </Nav.Link>
@@ -35,11 +46,16 @@ const NavbarCustom = () => {
             </Nav.Link>
             <Nav.Link active={location.pathname === "/contacts" ? true : false}>
               <i className="bi bi-info-circle-fill me-1"></i>
-              Contact Us
+              Contact us
             </Nav.Link>
           </Nav>
-          <Button className="rounded-4 shadow-btm mb-md-o mb-2">
-            Subscribe
+          <Button
+            className="rounded-4 shadow-btm mb-md-o mb-2"
+            onClick={() => {
+              navigate("/login");
+            }}
+          >
+            Login
           </Button>
         </Navbar.Collapse>
       </Container>
