@@ -4,6 +4,7 @@ import "react-multi-carousel/lib/styles.css";
 
 import { getAllCategories } from "../fetchFunctions";
 import { Menu, MenuItem } from "@mui/material";
+import { ArticlesSection } from "./ArticlesSection";
 
 const Home = () => {
   const [categories, setCategories] = useState(null);
@@ -85,6 +86,7 @@ const Home = () => {
             </div>
           </Col>
         </Row>
+        <ArticlesSection />
       </Container>
     </>
   );

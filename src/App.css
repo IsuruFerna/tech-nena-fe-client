@@ -26,3 +26,41 @@ input:focus {
 .search-hero {
   border-radius: 5px 0 0 5px;
 }
+
+@media screen and (max-width: 480px) {
+  .search-hero {
+    width: 70px;
+  }
+
+  .search-hero:focus {
+    animation: expand 0.3s linear forwards;
+  }
+
+  .search-hero:not(:focus) {
+    animation: collapse 0.3s linear forwards;
+  }
+
+  @keyframes expand {
+    0% {
+      width: 70px;
+    }
+    100% {
+      width: 180px;
+    }
+  }
+
+  @keyframes collapse {
+    0% {
+      width: 180px;
+    }
+    100% {
+      width: 70px;
+    }
+  }
+}
+
+/* articles cards */
+
+.card-bottom-text {
+  font-size: 0.8em;
+}
