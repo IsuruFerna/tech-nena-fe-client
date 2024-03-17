@@ -64,3 +64,11 @@ input:focus {
 .card-bottom-text {
   font-size: 0.8em;
 }
+
+.css-7dv1rb-MuiButtonBase-root-MuiFab-root-MuiSpeedDial-fab {
+  background-color: #ff9c00 !important;
+}
+
+.css-7dv1rb-MuiButtonBase-root-MuiFab-root-MuiSpeedDial-fab:hover {
+  background-color: darken(#ff9c00, 20%) !important;
+}
