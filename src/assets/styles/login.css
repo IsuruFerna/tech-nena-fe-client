@@ -258,3 +258,16 @@
   color: #3c97bf;
   text-decoration: none;
 }
+
+[transition-style="in:circle:center"] {
+  animation: 2.5s cubic-bezier(0.25, 1, 0.3, 1) circle-in-center both;
+}
+
+@keyframes circle-in-center {
+  from {
+    clip-path: circle(0%);
+  }
+  to {
+    clip-path: circle(125%);
+  }
+}

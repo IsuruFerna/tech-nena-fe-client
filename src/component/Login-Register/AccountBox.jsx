@@ -14,7 +14,12 @@ export default function AccountBox() {
   const containerClass =
     "container " + (type === "signUp" ? "right-panel-active" : "");
   return (
-    <div className="AccountBox  pt-5">
+    <div
+      className="AccountBox  pt-5"
+      style={{
+        animation: "2.5s cubic-bezier(0.25, 1, 0.3, 1) circle-in-center both",
+      }}
+    >
       <h1 className="text-center my-2">Welcome on TechNena</h1>
       <div className={containerClass} id="container">
         <SignUp />

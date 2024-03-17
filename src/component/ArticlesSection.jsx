@@ -29,7 +29,7 @@ const ArticlesSection = () => {
   }, []);
 
   return (
-    <Row>
+    <Row className="mt-4">
       <Col>
         <Card sx={{ maxWidth: 345 }}>
           <CardMedia
