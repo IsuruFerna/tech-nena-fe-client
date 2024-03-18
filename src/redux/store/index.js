@@ -1,12 +1,39 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import homeReducer from "../reducers/home_reducer";
+import storage from "redux-persist/lib/storage";
+
+import {
+  persistStore,
+  persistReducer,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+} from "redux-persist";
 
 const bigReducer = combineReducers({
-   home: homeReducer,
+  home: homeReducer,
 });
+
+const persistConfig = {
+  key: "root",
+  storage,
+};
+
+const persistedReducer = persistReducer(persistConfig, bigReducer);
 
 const store = configureStore({
-   reducer: bigReducer,
+  reducer: persistedReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }),
 });
 
-export default store;
+const persistor = persistStore(store);
+
+export { store, persistor };

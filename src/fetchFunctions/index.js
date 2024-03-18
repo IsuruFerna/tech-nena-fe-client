@@ -48,3 +48,52 @@ export const getAllApprovedArticles = (page, size, order) => {
       console.log(err);
     });
 };
+
+export const registerUser = (payload) => {
+  return fetch("http://localhost:3035/auth/register", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(payload),
+  })
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      } else {
+        throw new Error("Error in registering user");
+      }
+    })
+    .then((data) => {
+      console.log("registrazione ok");
+      return data;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+export const loginUser = (payload) => {
+  return fetch("http://localhost:3035/auth/login", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(payload),
+  })
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      } else {
+        throw new Error("Error in login user");
+      }
+    })
+    .then((data) => {
+      console.log("login ok");
+      localStorage.setItem("token", data.token);
+      return data;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};

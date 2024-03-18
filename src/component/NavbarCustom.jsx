@@ -3,15 +3,58 @@ import "../assets/styles/nav.css";
 
 import logo from "../assets/img/logo.jpeg";
 import { useLocation, useNavigate } from "react-router-dom";
+import { Box, styled } from "@mui/material";
+import SpeedDial from "@mui/material/SpeedDial";
+import SpeedDialAction from "@mui/material/SpeedDialAction";
+import SettingsIcon from "@mui/icons-material/Settings";
+import LogoutIcon from "@mui/icons-material/Logout";
+import ContrastIcon from "@mui/icons-material/Contrast";
 
 const NavbarCustom = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
+  const userData = localStorage.getItem("token");
+
+  const actions = [
+    { icon: <ContrastIcon />, name: "Toggle dark mode" },
+    { icon: <LogoutIcon />, name: "Logout" },
+  ];
+
+  const StyledSpeedDial = styled(SpeedDial)(({ theme }) => ({
+    position: "absolute",
+    "&.MuiSpeedDial-directionUp, &.MuiSpeedDial-directionLeft": {
+      bottom: theme.spacing(2),
+      right: theme.spacing(2),
+    },
+    "&.MuiSpeedDial-directionDown, &.MuiSpeedDial-directionRight": {
+      top: theme.spacing(2),
+      left: theme.spacing(2),
+    },
+  }));
+
+  const doSomething = (param) => {
+    switch (param) {
+      case "Logout": {
+        localStorage.removeItem("token");
+        navigate("/login");
+        break;
+      }
+      case "Toggle dark mode": {
+        console.log("dark mode to embed");
+        break;
+      }
+    }
+  };
+
   return (
     <Navbar
       expand="lg"
-      className="bg-white-secondary shadow-btm p-0 sticky-top"
+      className={
+        location.pathname === "/login"
+          ? "d-none"
+          : "bg-white shadow-btm p-0 sticky-top"
+      }
     >
       <Container className="navbar-cont">
         <Navbar.Brand
@@ -49,14 +92,35 @@ const NavbarCustom = () => {
               Contact us
             </Nav.Link>
           </Nav>
-          <Button
-            className="rounded-4 shadow-btm mb-md-o mb-2"
-            onClick={() => {
-              navigate("/login");
-            }}
-          >
-            Login
-          </Button>
+          {userData ? (
+            <Box sx={{ position: "relative", mb: 1, height: 60 }}>
+              <StyledSpeedDial
+                ariaLabel="SpeedDial playground example"
+                icon={<SettingsIcon />}
+                direction={"down"}
+              >
+                {actions.map((action) => (
+                  <SpeedDialAction
+                    key={action.name}
+                    icon={action.icon}
+                    tooltipTitle={action.name}
+                    onClick={() => {
+                      doSomething(action.name);
+                    }}
+                  />
+                ))}
+              </StyledSpeedDial>
+            </Box>
+          ) : (
+            <Button
+              className="rounded-4 shadow-btm mb-md-0 mb-2 ms-md-0 ms-5"
+              onClick={() => {
+                navigate("/login");
+              }}
+            >
+              Login
+            </Button>
+          )}
         </Navbar.Collapse>
       </Container>
     </Navbar>

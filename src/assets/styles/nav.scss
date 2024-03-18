@@ -19,3 +19,8 @@ $bs-btn-active-bg: #ff9c00 !default;
 .navbar button:hover:not(.navbar-toggler) {
   background-color: darken(#ff9c00, 10%);
 }
+
+.navbar-cont .MuiButtonBase-root {
+  height: 40px !important;
+  width: 40px !important;
+}

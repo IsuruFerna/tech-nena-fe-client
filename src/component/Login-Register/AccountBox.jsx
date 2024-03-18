@@ -2,9 +2,11 @@ import { useState } from "react";
 import "../../assets/styles/login.css";
 import SignUp from "./SignUp";
 import SIgnIn from "./SignIn";
+import { Alert, Snackbar } from "@mui/material";
 
 export default function AccountBox() {
   const [type, setType] = useState("signIn");
+  const [showNotification, setShowNotification] = useState(false);
   const handleOnClick = (text) => {
     if (text !== type) {
       setType(text);
@@ -15,14 +17,21 @@ export default function AccountBox() {
     "container " + (type === "signUp" ? "right-panel-active" : "");
   return (
     <div
-      className="AccountBox  pt-5"
+      className="AccountBox  pt-5 mt-5"
       style={{
         animation: "2.5s cubic-bezier(0.25, 1, 0.3, 1) circle-in-center both",
       }}
     >
       <h1 className="text-center my-2">Welcome on TechNena</h1>
       <div className={containerClass} id="container">
-        <SignUp />
+        <SignUp
+          loginUser={() => {
+            handleOnClick("signIn");
+          }}
+          showNotif={() => {
+            setShowNotification(true);
+          }}
+        />
         <SIgnIn />
         <div className="overlay-container">
           <div className="overlay">
@@ -53,6 +62,26 @@ export default function AccountBox() {
           </div>
         </div>
       </div>
+      <Snackbar
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        open={showNotification}
+        autoHideDuration={10000}
+        onClose={() => {
+          setShowNotification(false);
+        }}
+        className="snack"
+      >
+        <Alert
+          onClose={() => {
+            setShowNotification(false);
+          }}
+          severity="success"
+          variant="filled"
+          sx={{ width: "100%" }}
+        >
+          Successfully registered!
+        </Alert>
+      </Snackbar>
     </div>
   );
 }

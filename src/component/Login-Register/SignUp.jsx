@@ -1,5 +1,11 @@
 import { useState } from "react";
-function SignUp() {
+import { registerUser } from "../../fetchFunctions";
+
+function SignUp(props) {
+  // eslint-disable-next-line react/prop-types
+  const { loginUser } = props;
+  const { showNotif } = props;
+
   const [state, setState] = useState({
     name: "",
     email: "",
@@ -15,13 +21,13 @@ function SignUp() {
     });
   };
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const handleOnSubmit = (evt) => {
     evt.preventDefault();
+    setIsLoading(true);
 
-    const { name, email, password } = state;
-    alert(
-      `You are sign up with name: ${name} email: ${email} and password: ${password}`
-    );
+    const { name, email, password, lastname, username } = state;
 
     for (const key in state) {
       setState({
@@ -29,6 +35,18 @@ function SignUp() {
         [key]: "",
       });
     }
+
+    registerUser(state).then((data) => {
+      if (data) {
+        setTimeout(() => {
+          setIsLoading(false);
+          loginUser();
+          showNotif();
+        }, 3000);
+      } else {
+        setIsLoading(false);
+      }
+    });
   };
 
   return (
@@ -45,7 +63,7 @@ function SignUp() {
         <input
           type="text"
           name="lastname"
-          value={state.name}
+          value={state.lastname}
           onChange={handleChange}
           placeholder="Last Name"
         />
@@ -59,7 +77,7 @@ function SignUp() {
         <input
           type="text"
           name="username"
-          value={state.email}
+          value={state.username}
           onChange={handleChange}
           placeholder="Username"
         />
@@ -70,7 +88,7 @@ function SignUp() {
           onChange={handleChange}
           placeholder="Password"
         />
-        <button>Sign Up</button>
+        {isLoading ? <div className="dots"></div> : <button>Sign Up</button>}
       </form>
     </div>
   );

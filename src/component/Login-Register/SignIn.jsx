@@ -1,6 +1,11 @@
 import { useState } from "react";
+import { loginUser } from "../../fetchFunctions";
+import { useNavigate } from "react-router-dom";
 
 function SignIn() {
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+
   const [state, setState] = useState({
     email: "",
     password: "",
@@ -13,11 +18,25 @@ function SignIn() {
     });
   };
 
+  const login = () => {
+    setIsLoading(true);
+    loginUser(state).then((res) => {
+      if (res) {
+        console.log(res);
+        setTimeout(() => {
+          setIsLoading(false);
+          navigate("/");
+        }, 3000);
+      } else {
+        setIsLoading(false);
+      }
+    });
+  };
+
   const handleOnSubmit = (evt) => {
     evt.preventDefault();
 
     const { email, password } = state;
-    alert(`You are login with email: ${email} and password: ${password}`);
 
     for (const key in state) {
       setState({
@@ -25,6 +44,8 @@ function SignIn() {
         [key]: "",
       });
     }
+
+    login();
   };
 
   return (
@@ -47,7 +68,7 @@ function SignIn() {
           onChange={handleChange}
         />
         <a href="#">Forgot your password?</a>
-        <button>Sign In</button>
+        {isLoading ? <div className="dots"></div> : <button>Sign In</button>}
       </form>
     </div>
   );

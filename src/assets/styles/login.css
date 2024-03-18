@@ -26,7 +26,7 @@
   margin: 15px 0;
 }
 
-.AccountBox button {
+.AccountBox button:not(.snack button) {
   border-radius: 20px;
   border: 1px solid #ff9c00;
   background-color: #ff9c00;
@@ -37,6 +37,7 @@
   letter-spacing: 1px;
   text-transform: uppercase;
   transition: transform 80ms ease-in;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
 
 .AccountBox button:active {
