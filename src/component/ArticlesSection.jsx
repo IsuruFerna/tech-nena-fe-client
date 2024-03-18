@@ -85,7 +85,9 @@ const ArticlesSection = () => {
                       />
                     </div>
                     <div>
-                      <p className="m-0 fw-bold">Username</p>
+                      <p className="m-0 fw-bold" style={{ fontSize: "0.8em" }}>
+                        Username
+                      </p>
                       <p className="m-0" style={{ fontSize: "0.8em" }}>
                         Commento
                       </p>

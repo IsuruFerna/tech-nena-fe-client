@@ -9,10 +9,13 @@ import SpeedDialAction from "@mui/material/SpeedDialAction";
 import SettingsIcon from "@mui/icons-material/Settings";
 import LogoutIcon from "@mui/icons-material/Logout";
 import ContrastIcon from "@mui/icons-material/Contrast";
+import { useEffect, useState } from "react";
 
 const NavbarCustom = () => {
   const location = useLocation();
   const navigate = useNavigate();
+
+  const [barDirection, setBarDirection] = useState("down");
 
   const userData = localStorage.getItem("token");
 
@@ -47,6 +50,17 @@ const NavbarCustom = () => {
     }
   };
 
+  useEffect(() => {
+    const handleResize = (e) => {
+      if (e.target.innerWidth < 991) {
+        setBarDirection("right");
+      } else {
+        setBarDirection("down");
+      }
+    };
+    window.addEventListener("resize", handleResize);
+  }, []);
+
   return (
     <Navbar
       expand="lg"
@@ -58,7 +72,6 @@ const NavbarCustom = () => {
     >
       <Container className="navbar-cont">
         <Navbar.Brand
-          href="#home"
           onClick={() => {
             navigate("/");
           }}
@@ -83,7 +96,12 @@ const NavbarCustom = () => {
               <i className="bi bi-house-door-fill me-1"></i>
               Home
             </Nav.Link>
-            <Nav.Link active={location.pathname === "/profile" ? true : false}>
+            <Nav.Link
+              active={location.pathname === "/profile" ? true : false}
+              onClick={() => {
+                navigate("/profile");
+              }}
+            >
               <i className="bi bi-person-fill me-1"></i>
               Profile
             </Nav.Link>
@@ -93,14 +111,19 @@ const NavbarCustom = () => {
             </Nav.Link>
           </Nav>
           {userData ? (
-            <Box sx={{ position: "relative", mb: 1, height: 60 }}>
+            <Box
+              sx={{ position: "relative", mb: 2, height: 60 }}
+              className="d-flex justify-content-start"
+            >
               <StyledSpeedDial
                 ariaLabel="SpeedDial playground example"
                 icon={<SettingsIcon />}
-                direction={"down"}
+                direction={barDirection}
+                style={{ left: "0px" }}
               >
                 {actions.map((action) => (
                   <SpeedDialAction
+                    className="bg-warning"
                     key={action.name}
                     icon={action.icon}
                     tooltipTitle={action.name}
