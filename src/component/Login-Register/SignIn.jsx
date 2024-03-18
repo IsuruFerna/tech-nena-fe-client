@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { loginUser } from "../../fetchFunctions";
+import { useNavigate } from "react-router-dom";
 
 function SignIn() {
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
   const [state, setState] = useState({
     email: "",
@@ -23,7 +25,10 @@ function SignIn() {
         console.log(res);
         setTimeout(() => {
           setIsLoading(false);
+          navigate("/");
         }, 3000);
+      } else {
+        setIsLoading(false);
       }
     });
   };

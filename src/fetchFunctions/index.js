@@ -90,6 +90,7 @@ export const loginUser = (payload) => {
     })
     .then((data) => {
       console.log("login ok");
+      localStorage.setItem("token", data.token);
       return data;
     })
     .catch((err) => {

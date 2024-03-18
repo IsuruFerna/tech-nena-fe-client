@@ -75,12 +75,23 @@ const ArticlesSection = () => {
               <Typography paragraph>Comments</Typography>
               <div className="overflow-y-scroll" style={{ maxHeight: "120px" }}>
                 <ul className="list-unstyled">
-                  <li>cooment 1</li>
-                  <li>cooment 1</li>
-                  <li>cooment 1</li>
-                  <li>cooment 1</li>
-                  <li>cooment 1</li>
-                  <li>cooment 1</li>
+                  {/* THE LI TO MAP FOR OBTAIN COMMENTS LIST FOR A POST */}
+                  <li className="d-flex align-items-center">
+                    <div style={{ width: "20%" }}>
+                      <img
+                        src="https://img.freepik.com/premium-vector/avatar-icon002_750950-52.jpg"
+                        alt="user-img"
+                        style={{ width: "100%" }}
+                      />
+                    </div>
+                    <div>
+                      <p className="m-0 fw-bold">Username</p>
+                      <p className="m-0" style={{ fontSize: "0.8em" }}>
+                        Commento
+                      </p>
+                    </div>
+                  </li>
+                  {/* THE LI TO MAP FOR OBTAIN COMMENTS LIST FOR A POST */}
                 </ul>
               </div>
               <div className="d-flex align-items-center mt-3">
