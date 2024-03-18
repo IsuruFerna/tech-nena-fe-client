@@ -26,7 +26,7 @@
   margin: 15px 0;
 }
 
-.AccountBox button {
+.AccountBox button:not(.snack button) {
   border-radius: 20px;
   border: 1px solid #ff9c00;
   background-color: #ff9c00;

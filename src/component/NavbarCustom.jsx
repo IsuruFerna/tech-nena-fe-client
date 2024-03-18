@@ -11,7 +11,11 @@ const NavbarCustom = () => {
   return (
     <Navbar
       expand="lg"
-      className="bg-white-secondary shadow-btm p-0 sticky-top"
+      className={
+        location.pathname === "/login"
+          ? "d-none"
+          : "bg-white-secondary shadow-btm p-0 sticky-top"
+      }
     >
       <Container className="navbar-cont">
         <Navbar.Brand
