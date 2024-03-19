@@ -3,35 +3,37 @@ import homeReducer from "../reducers/home_reducer";
 import storage from "redux-persist/lib/storage";
 
 import {
-  persistStore,
-  persistReducer,
-  FLUSH,
-  REHYDRATE,
-  PAUSE,
-  PERSIST,
-  PURGE,
-  REGISTER,
+   persistStore,
+   persistReducer,
+   FLUSH,
+   REHYDRATE,
+   PAUSE,
+   PERSIST,
+   PURGE,
+   REGISTER,
 } from "redux-persist";
+import userReducer from "../reducers/user_reducer";
 
 const bigReducer = combineReducers({
-  home: homeReducer,
+   home: homeReducer,
+   user: userReducer,
 });
 
 const persistConfig = {
-  key: "root",
-  storage,
+   key: "root",
+   storage,
 };
 
 const persistedReducer = persistReducer(persistConfig, bigReducer);
 
 const store = configureStore({
-  reducer: persistedReducer,
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({
-      serializableCheck: {
-        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-      },
-    }),
+   reducer: persistedReducer,
+   middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware({
+         serializableCheck: {
+            ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+         },
+      }),
 });
 
 const persistor = persistStore(store);

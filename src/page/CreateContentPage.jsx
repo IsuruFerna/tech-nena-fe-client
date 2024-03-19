@@ -10,7 +10,7 @@ const CreateContentPage = () => {
       name: "bob",
       category: "tech",
       content: "",
-      tags: Array.from(["tech"]),
+      tags: ["tech"],
    });
 
    // gets token from localStorage
@@ -19,13 +19,13 @@ const CreateContentPage = () => {
    const handleSubmit = (e) => {
       e.preventDefault();
       postContent(postData, getItem());
-      setPostData({
-         title: "",
-         name: "",
-         category: "",
-         content: "",
-         tags: "",
-      });
+      // setPostData({
+      //    title: "",
+      //    name: "",
+      //    category: "",
+      //    content: "",
+      //    tags: [],
+      // });
    };
 
    const handleInput = (e) => {
@@ -41,6 +41,25 @@ const CreateContentPage = () => {
          <form onSubmit={handleSubmit}>
             <div className="col-span-full">
                <label
+                  htmlFor="title"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+               >
+                  Title
+               </label>
+               <div className="mt-2">
+                  <input
+                     placeholder="Title"
+                     id="title"
+                     name="title"
+                     value={postData.title}
+                     onChange={handleInput}
+                     className="p-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-yellow-500 sm:text-sm sm:leading-6"
+                  ></input>
+               </div>
+            </div>
+
+            <div className="col-span-full">
+               <label
                   htmlFor="content"
                   className="block text-sm font-medium leading-6 text-gray-900"
                >
@@ -48,12 +67,33 @@ const CreateContentPage = () => {
                </label>
                <div className="mt-2">
                   <textarea
+                     placeholder="Content"
                      id="content"
                      name="content"
+                     value={postData.content}
                      onChange={handleInput}
                      rows="10"
-                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-yellow-500 sm:text-sm sm:leading-6"
+                     className="p-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-yellow-500 sm:text-sm sm:leading-6"
                   ></textarea>
+               </div>
+            </div>
+
+            <div className="col-span-full">
+               <label
+                  htmlFor="title"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+               >
+                  Tags
+               </label>
+               <div className="mt-2">
+                  <input
+                     placeholder="Title"
+                     id="tags"
+                     name="tags"
+                     value={postData.tags}
+                     onChange={handleInput}
+                     className="p-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-yellow-500 sm:text-sm sm:leading-6"
+                  ></input>
                </div>
             </div>
 
