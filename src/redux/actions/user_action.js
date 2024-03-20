@@ -1,4 +1,11 @@
 export const USER_DETAILS = "USER_DETAILS";
+export const USER_CLEAN = "USER_CLEAN";
+
+export const cleanUserAction = () => {
+   return {
+      type: USER_CLEAN,
+   };
+};
 
 export const saveUserAction = (token) => {
    return async (dispatch) => {

@@ -1,4 +1,4 @@
-import { USER_DETAILS } from "../actions/user_action";
+import { USER_CLEAN, USER_DETAILS } from "../actions/user_action";
 
 const initialState = {
    email: "",
@@ -20,6 +20,17 @@ const userReducer = (state = initialState, action) => {
             name: action.payload.name,
             role: action.payload.role,
             username: action.payload.username,
+         };
+
+      case USER_CLEAN:
+         return {
+            ...state,
+            email: "",
+            id: "",
+            lastname: "",
+            name: "",
+            role: "",
+            username: "",
          };
 
       default:

@@ -10,144 +10,151 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import LogoutIcon from "@mui/icons-material/Logout";
 import ContrastIcon from "@mui/icons-material/Contrast";
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { cleanUserAction } from "../redux/actions/user_action";
 
 const NavbarCustom = () => {
-  const location = useLocation();
-  const navigate = useNavigate();
+   const location = useLocation();
+   const navigate = useNavigate();
 
-  const [barDirection, setBarDirection] = useState("down");
+   const [barDirection, setBarDirection] = useState("down");
 
-  const userData = localStorage.getItem("token");
+   const userData = localStorage.getItem("token");
 
-  const actions = [
-    { icon: <ContrastIcon />, name: "Toggle dark mode" },
-    { icon: <LogoutIcon />, name: "Logout" },
-  ];
+   const actions = [
+      { icon: <ContrastIcon />, name: "Toggle dark mode" },
+      { icon: <LogoutIcon />, name: "Logout" },
+   ];
 
-  const StyledSpeedDial = styled(SpeedDial)(({ theme }) => ({
-    position: "absolute",
-    "&.MuiSpeedDial-directionUp, &.MuiSpeedDial-directionLeft": {
-      bottom: theme.spacing(2),
-      right: theme.spacing(2),
-    },
-    "&.MuiSpeedDial-directionDown, &.MuiSpeedDial-directionRight": {
-      top: theme.spacing(2),
-      left: theme.spacing(2),
-    },
-  }));
+   const StyledSpeedDial = styled(SpeedDial)(({ theme }) => ({
+      position: "absolute",
+      "&.MuiSpeedDial-directionUp, &.MuiSpeedDial-directionLeft": {
+         bottom: theme.spacing(2),
+         right: theme.spacing(2),
+      },
+      "&.MuiSpeedDial-directionDown, &.MuiSpeedDial-directionRight": {
+         top: theme.spacing(2),
+         left: theme.spacing(2),
+      },
+   }));
 
-  const doSomething = (param) => {
-    switch (param) {
-      case "Logout": {
-        localStorage.removeItem("token");
-        navigate("/login");
-        break;
+   const dispatch = useDispatch();
+
+   const doSomething = (param) => {
+      switch (param) {
+         case "Logout": {
+            localStorage.removeItem("token");
+            dispatch(cleanUserAction());
+            navigate("/login");
+            break;
+         }
+         case "Toggle dark mode": {
+            console.log("dark mode to embed");
+            break;
+         }
       }
-      case "Toggle dark mode": {
-        console.log("dark mode to embed");
-        break;
-      }
-    }
-  };
+   };
 
-  useEffect(() => {
-    const handleResize = (e) => {
-      if (e.target.innerWidth < 991) {
-        setBarDirection("right");
-      } else {
-        setBarDirection("down");
-      }
-    };
-    window.addEventListener("resize", handleResize);
-  }, []);
+   useEffect(() => {
+      const handleResize = (e) => {
+         if (e.target.innerWidth < 991) {
+            setBarDirection("right");
+         } else {
+            setBarDirection("down");
+         }
+      };
+      window.addEventListener("resize", handleResize);
+   }, []);
 
-  return (
-    <Navbar
-      expand="lg"
-      className={
-        location.pathname === "/login"
-          ? "d-none"
-          : "bg-white shadow-btm p-0 sticky-top"
-      }
-    >
-      <Container className="navbar-cont">
-        <Navbar.Brand
-          onClick={() => {
-            navigate("/");
-          }}
-        >
-          <img
-            src={logo}
-            width="100"
-            height="50"
-            className="d-inline-block align-top"
-            alt="React Bootstrap logo"
-          />
-        </Navbar.Brand>{" "}
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="mx-auto">
-            <Nav.Link
-              active={location.pathname === "/" ? true : false}
-              onClick={() => {
-                navigate("/");
-              }}
+   return (
+      <Navbar
+         expand="lg"
+         className={
+            location.pathname === "/login"
+               ? "d-none"
+               : "bg-white shadow-btm p-0 sticky-top"
+         }
+      >
+         <Container className="navbar-cont">
+            <Navbar.Brand
+               onClick={() => {
+                  navigate("/");
+               }}
             >
-              <i className="bi bi-house-door-fill me-1"></i>
-              Home
-            </Nav.Link>
-            <Nav.Link
-              active={location.pathname === "/profile" ? true : false}
-              onClick={() => {
-                navigate("/profile");
-              }}
-            >
-              <i className="bi bi-person-fill me-1"></i>
-              Profile
-            </Nav.Link>
-            <Nav.Link active={location.pathname === "/contacts" ? true : false}>
-              <i className="bi bi-info-circle-fill me-1"></i>
-              Contact us
-            </Nav.Link>
-          </Nav>
-          {userData ? (
-            <Box
-              sx={{ position: "relative", mb: 2, height: 60 }}
-              className="d-flex justify-content-start"
-            >
-              <StyledSpeedDial
-                ariaLabel="SpeedDial playground example"
-                icon={<SettingsIcon />}
-                direction={barDirection}
-                style={{ left: "0px" }}
-              >
-                {actions.map((action) => (
-                  <SpeedDialAction
-                    className="bg-warning"
-                    key={action.name}
-                    icon={action.icon}
-                    tooltipTitle={action.name}
-                    onClick={() => {
-                      doSomething(action.name);
-                    }}
-                  />
-                ))}
-              </StyledSpeedDial>
-            </Box>
-          ) : (
-            <Button
-              className="rounded-4 shadow-btm mb-md-0 mb-2 ms-md-0 ms-5"
-              onClick={() => {
-                navigate("/login");
-              }}
-            >
-              Login
-            </Button>
-          )}
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
-  );
+               <img
+                  src={logo}
+                  width="100"
+                  height="50"
+                  className="d-inline-block align-top"
+                  alt="React Bootstrap logo"
+               />
+            </Navbar.Brand>{" "}
+            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            <Navbar.Collapse id="basic-navbar-nav">
+               <Nav className="mx-auto">
+                  <Nav.Link
+                     active={location.pathname === "/" ? true : false}
+                     onClick={() => {
+                        navigate("/");
+                     }}
+                  >
+                     <i className="bi bi-house-door-fill me-1"></i>
+                     Home
+                  </Nav.Link>
+                  <Nav.Link
+                     active={location.pathname === "/profile" ? true : false}
+                     onClick={() => {
+                        navigate("/profile");
+                     }}
+                  >
+                     <i className="bi bi-person-fill me-1"></i>
+                     Profile
+                  </Nav.Link>
+                  <Nav.Link
+                     active={location.pathname === "/contacts" ? true : false}
+                  >
+                     <i className="bi bi-info-circle-fill me-1"></i>
+                     Contact us
+                  </Nav.Link>
+               </Nav>
+               {userData ? (
+                  <Box
+                     sx={{ position: "relative", mb: 2, height: 60 }}
+                     className="d-flex justify-content-start"
+                  >
+                     <StyledSpeedDial
+                        ariaLabel="SpeedDial playground example"
+                        icon={<SettingsIcon />}
+                        direction={barDirection}
+                        style={{ left: "0px" }}
+                     >
+                        {actions.map((action) => (
+                           <SpeedDialAction
+                              className="bg-warning"
+                              key={action.name}
+                              icon={action.icon}
+                              tooltipTitle={action.name}
+                              onClick={() => {
+                                 doSomething(action.name);
+                              }}
+                           />
+                        ))}
+                     </StyledSpeedDial>
+                  </Box>
+               ) : (
+                  <Button
+                     className="rounded-4 shadow-btm mb-md-0 mb-2 ms-md-0 ms-5"
+                     onClick={() => {
+                        navigate("/login");
+                     }}
+                  >
+                     Login
+                  </Button>
+               )}
+            </Navbar.Collapse>
+         </Container>
+      </Navbar>
+   );
 };
 
 export default NavbarCustom;
