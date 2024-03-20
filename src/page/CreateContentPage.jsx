@@ -37,7 +37,7 @@ const CreateContentPage = () => {
 
    return (
       <Container>
-         <AddCoverPhoto />
+         {/* <AddCoverPhoto /> */}
          <form onSubmit={handleSubmit}>
             <div className="col-span-full">
                <label

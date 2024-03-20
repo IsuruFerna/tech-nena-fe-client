@@ -40,9 +40,11 @@ const NavbarCustom = () => {
 
    const dispatch = useDispatch();
 
+   // navbar speed dial button
    const doSomething = (param) => {
       switch (param) {
          case "Logout": {
+            // when user logs out cleans token and clean persist user data
             localStorage.removeItem("token");
             dispatch(cleanUserAction());
             navigate("/login");
