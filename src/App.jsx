@@ -6,6 +6,7 @@ import NavbarCustom from "./component/NavbarCustom";
 import AccountBox from "./component/Login-Register/AccountBox";
 import CreateContentPage from "./page/CreateContentPage";
 import NotFoundPage from "./page/NotFoundPage";
+import DashboardPage from "./page/DashboardPage";
 
 function App() {
    return (
@@ -16,6 +17,7 @@ function App() {
                <Route path="/login" element={<AccountBox />} />
                <Route path="/" element={<Home />} />
                <Route path="/create" element={<CreateContentPage />} />
+               <Route path="/dashboard" element={<DashboardPage />} />
                <Route path="*" element={<NotFoundPage />} />
             </Routes>
          </BrowserRouter>

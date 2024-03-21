@@ -9,7 +9,9 @@ export const getAllApprovedArticlesAction = (
    return async (dispatch) => {
       try {
          const response = await fetch(
-            "http://localhost:3035/posts/all?page=" +
+            import.meta.env.VITE_APP_BE_URL +
+               "/posts/approved" +
+               "?page=" +
                page +
                "&size=" +
                size +

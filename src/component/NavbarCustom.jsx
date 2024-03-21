@@ -10,12 +10,14 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import LogoutIcon from "@mui/icons-material/Logout";
 import ContrastIcon from "@mui/icons-material/Contrast";
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { cleanUserAction } from "../redux/actions/user_action";
 
 const NavbarCustom = () => {
    const location = useLocation();
    const navigate = useNavigate();
+
+   const reduxUser = useSelector((state) => state.user);
 
    const [barDirection, setBarDirection] = useState("down");
 
@@ -118,6 +120,32 @@ const NavbarCustom = () => {
                      <i className="bi bi-info-circle-fill me-1"></i>
                      Contact us
                   </Nav.Link>
+                  {reduxUser.role === "ADMIN" && (
+                     <>
+                        <Nav.Link
+                           active={
+                              location.pathname === "/dashboard" ? true : false
+                           }
+                           onClick={() => {
+                              navigate("/dashboard");
+                           }}
+                        >
+                           <i className="bi bi-clipboard2-pulse-fill me-1"></i>
+                           Dashboard
+                        </Nav.Link>
+                        <Nav.Link
+                           active={
+                              location.pathname === "/pending" ? true : false
+                           }
+                           onClick={() => {
+                              navigate("/pending");
+                           }}
+                        >
+                           <i className="bi bi-ui-checks-grid me-1"></i>
+                           Approve posts
+                        </Nav.Link>
+                     </>
+                  )}
                </Nav>
                {userData ? (
                   <Box
