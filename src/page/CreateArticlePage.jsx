@@ -1,13 +1,14 @@
 import { Container } from "react-bootstrap";
-import AddCoverPhoto from "../component/post/AddCoverPhoto";
 import { useState } from "react";
-import { postContent } from "../fetchFunctions";
 import { TOKEN, useLocalStorage } from "../hooks/useLocalStorage";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-const CreateContentPage = () => {
+const CreateArticlePage = () => {
+   const reduxUser = useSelector((state) => state.user);
    const [postData, setPostData] = useState({
       title: "title",
-      name: "bob",
+      name: reduxUser.username,
       category: "tech",
       content: "",
       tags: ["tech"],
@@ -15,10 +16,12 @@ const CreateContentPage = () => {
 
    // gets token from localStorage
    const { getItem } = useLocalStorage(TOKEN);
+   const navigate = useNavigate();
 
    const handleSubmit = (e) => {
       e.preventDefault();
       postContent(postData, getItem());
+
       // setPostData({
       //    title: "",
       //    name: "",
@@ -33,6 +36,32 @@ const CreateContentPage = () => {
          ...postData,
          [e.target.name]: e.target.value,
       });
+   };
+
+   // creates new article and navigate to it
+   const postContent = async (postData, token) => {
+      try {
+         const response = await fetch(
+            import.meta.env.VITE_APP_BE_URL + "/posts/new",
+            {
+               method: "POST",
+               body: JSON.stringify(postData),
+               headers: {
+                  Authorization: "Bearer " + token,
+                  "Content-Type": "application/json",
+               },
+            }
+         );
+
+         if (!response.ok) {
+            throw new Error("posting article issue!");
+         }
+
+         const data = await response.json();
+         navigate("/article/" + data.id);
+      } catch (error) {
+         console.log(error);
+      }
    };
 
    return (
@@ -116,4 +145,4 @@ const CreateContentPage = () => {
    );
 };
 
-export default CreateContentPage;
+export default CreateArticlePage;

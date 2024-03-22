@@ -10,7 +10,7 @@ export const getAllApprovedArticlesAction = (
       try {
          const response = await fetch(
             import.meta.env.VITE_APP_BE_URL +
-               "/posts/approved" +
+               "/posts/all" +
                "?page=" +
                page +
                "&size=" +

@@ -12,12 +12,14 @@ import {
 import { TOKEN, useLocalStorage } from "../hooks/useLocalStorage";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllApprovedArticlesAction } from "../redux/actions/post_action";
+import { useNavigate } from "react-router-dom";
 
 const ArticlesSection = () => {
    const { getItem } = useLocalStorage(TOKEN);
 
    const dispatch = useDispatch();
    const reduxPosts = useSelector((state) => state.posts);
+   const navigate = useNavigate();
 
    const [expand, setExpand] = useState(false);
 
@@ -74,7 +76,13 @@ const ArticlesSection = () => {
                               </p>
                            </div>
                            <div>
-                              <Button size="small" style={{ color: "#ecaf50" }}>
+                              <Button
+                                 onClick={() => {
+                                    navigate("article/" + post.id);
+                                 }}
+                                 size="small"
+                                 style={{ color: "#ecaf50" }}
+                              >
                                  Read More
                               </Button>
                            </div>

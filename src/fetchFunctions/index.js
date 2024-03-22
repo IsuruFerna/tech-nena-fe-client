@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { TOKEN, useLocalStorage } from "../hooks/useLocalStorage";
 
 export const getAllCategories = () => {
@@ -142,27 +143,4 @@ export const loginUser = (payload) => {
       .catch((err) => {
          console.log(err);
       });
-};
-
-export const postContent = async (postData, token) => {
-   try {
-      console.log("this is token from ls: ", token);
-      const response = await fetch(
-         import.meta.env.VITE_APP_BE_URL + "/posts/new",
-         {
-            method: "POST",
-            body: JSON.stringify(postData),
-            headers: {
-               Authorization: "Bearer " + token,
-               "Content-Type": "application/json",
-            },
-         }
-      );
-
-      if (response.ok) {
-         console.log("this is the reposne and post went fine!");
-      }
-   } catch (error) {
-      console.log(error);
-   }
 };
