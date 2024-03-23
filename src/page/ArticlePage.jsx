@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { TOKEN, useLocalStorage } from "../hooks/useLocalStorage";
-import { Container, Image } from "react-bootstrap";
+import { Container, Image, Row, Col } from "react-bootstrap";
 import AddCoverPhoto from "../component/post/AddCoverPhoto";
 
 const ArticlePage = () => {
@@ -72,32 +72,59 @@ const ArticlePage = () => {
 
    return (
       <Container>
-         <h1 className="text-4xl">{article.title}</h1>
-         {article.postImage ? (
-            <Image src={article.postImage} />
-         ) : (
-            <AddCoverPhoto
-               postId={article.id}
-               setArticle={setArticle}
-               article={article}
-            />
-         )}
-         <p>{article.content}</p>
-         <div>
-            <div>
-               {" "}
-               <img src={article.avatarUrl} alt="author picure" />
-               <p>
-                  Author: {article.name} {article.lastName}
-               </p>
-            </div>
+         <Row>
+            <Col xs={{ span: 8, offset: 2 }} md={{ span: 6, offset: 3 }}>
+               <h1 className="text-4xl">{article.title}</h1>
+            </Col>
+         </Row>
 
-            <div>
-               <p>
-                  {new Date(article.postDate).toLocaleString().substring(0, 17)}
-               </p>
-            </div>
-         </div>
+         <Row>
+            <Col md lg={4}>
+               <div>
+                  {/* <img src={article.avatarUrl} alt="author picure" /> */}
+                  <div className="flex justify-between py-1">
+                     <p className="text-left">Author</p>
+                     <p className="text-right w-100">
+                        {article.name} {article.lastName}
+                     </p>
+                  </div>
+               </div>
+               <hr />
+
+               <div className="flex justify-between py-1">
+                  <p className="text-left">Release</p>
+                  <p className="text-right w-100">
+                     {new Date(article.postDate)
+                        .toLocaleString()
+                        .substring(0, 17)}
+                  </p>
+               </div>
+               <hr />
+               <div className="p-1">
+                  <i className="bi bi-twitter-x  pe-2"></i>
+                  <i className="bi bi-facebook pe-2"></i>
+                  <i className="bi bi-linkedin pe-2"></i>
+               </div>
+            </Col>
+
+            <Col md lg={8}>
+               {article.postImage ? (
+                  <Image src={article.postImage} />
+               ) : (
+                  <AddCoverPhoto
+                     postId={article.id}
+                     setArticle={setArticle}
+                     article={article}
+                  />
+               )}
+               <p className="pb-10">{article.content}</p>
+               <hr />
+               <div>
+                  <p className="font-bold">Related terms</p>
+                  <p>{article.postTags}</p>
+               </div>
+            </Col>
+         </Row>
       </Container>
    );
 };
