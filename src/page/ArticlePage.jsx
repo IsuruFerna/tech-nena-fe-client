@@ -79,7 +79,7 @@ const ArticlePage = () => {
          </Row>
 
          <Row>
-            <Col md lg={4}>
+            <Col md={4} lg={{ span: 3, offset: 1 }}>
                <div>
                   {/* <img src={article.avatarUrl} alt="author picure" /> */}
                   <div className="flex justify-between py-1">
@@ -107,7 +107,7 @@ const ArticlePage = () => {
                </div>
             </Col>
 
-            <Col md lg={8}>
+            <Col md lg={{ span: 6, offset: 1 }}>
                {article.postImage ? (
                   <Image src={article.postImage} />
                ) : (
