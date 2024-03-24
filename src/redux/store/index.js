@@ -14,11 +14,13 @@ import {
 } from "redux-persist";
 import userReducer from "../reducers/user_reducer";
 import postReducer from "../reducers/post_reducer";
+import approvedArticleReducer from "../reducers/articlesApproved_reducer";
 
 const bigReducer = combineReducers({
    home: homeReducer,
    user: userReducer,
    posts: postReducer,
+   approvedArticles: approvedArticleReducer,
 });
 
 const persistConfig = {
