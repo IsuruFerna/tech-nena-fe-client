@@ -4,11 +4,11 @@ import "react-multi-carousel/lib/styles.css";
 
 import { getAllCategories } from "../fetchFunctions";
 import { Menu, MenuItem } from "@mui/material";
-import { ArticlesSection } from "./ArticlesSection";
-import { MultiOptionButton } from "./MultiOptionButton";
-import CaroselComp from "./CaroselComp";
+import { ArticlesSection } from "../component/ArticlesSection";
+import { MultiOptionButton } from "../component/MultiOptionButton";
+import CaroselComp from "../component/CaroselComp";
 
-const Home = () => {
+const HomePage = () => {
    const [categories, setCategories] = useState(null);
 
    const [anchorEl, setAnchorEl] = useState(null);
@@ -99,4 +99,4 @@ const Home = () => {
    );
 };
 
-export default Home;
+export default HomePage;

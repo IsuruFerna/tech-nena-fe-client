@@ -1,77 +1,90 @@
 import { useState } from "react";
 import { loginUser } from "../../fetchFunctions";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { TOKEN, useLocalStorage } from "../../hooks/useLocalStorage";
+import { saveUserAction } from "../../redux/actions/user_action";
 
 function SignIn() {
-  const [isLoading, setIsLoading] = useState(false);
-  const navigate = useNavigate();
+   const [isLoading, setIsLoading] = useState(false);
+   const navigate = useNavigate();
+   const dispatch = useDispatch();
 
-  const [state, setState] = useState({
-    email: "",
-    password: "",
-  });
-  const handleChange = (evt) => {
-    const value = evt.target.value;
-    setState({
-      ...state,
-      [evt.target.name]: value,
-    });
-  };
+   const { getItem } = useLocalStorage(TOKEN);
 
-  const login = () => {
-    setIsLoading(true);
-    loginUser(state).then((res) => {
-      if (res) {
-        console.log(res);
-        setTimeout(() => {
-          setIsLoading(false);
-          navigate("/");
-        }, 3000);
-      } else {
-        setIsLoading(false);
-      }
-    });
-  };
-
-  const handleOnSubmit = (evt) => {
-    evt.preventDefault();
-
-    const { email, password } = state;
-
-    for (const key in state) {
+   const [state, setState] = useState({
+      email: "",
+      password: "",
+   });
+   const handleChange = (evt) => {
+      const value = evt.target.value;
       setState({
-        ...state,
-        [key]: "",
+         ...state,
+         [evt.target.name]: value,
       });
-    }
+   };
 
-    login();
-  };
+   const login = () => {
+      setIsLoading(true);
+      loginUser(state).then((res) => {
+         if (res) {
+            console.log(res);
+            setTimeout(() => {
+               setIsLoading(false);
+               navigate("/");
+            }, 3000);
 
-  return (
-    <div className="form-container sign-in-container">
-      <form onSubmit={handleOnSubmit}>
-        <h1>Sign in</h1>
+            // saves user date in presist
+            dispatch(saveUserAction(res.token));
+         } else {
+            setIsLoading(false);
+         }
+      });
+   };
 
-        <input
-          type="email"
-          placeholder="Email"
-          name="email"
-          value={state.email}
-          onChange={handleChange}
-        />
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          value={state.password}
-          onChange={handleChange}
-        />
-        <a href="#">Forgot your password?</a>
-        {isLoading ? <div className="dots"></div> : <button>Sign In</button>}
-      </form>
-    </div>
-  );
+   const handleOnSubmit = (evt) => {
+      evt.preventDefault();
+
+      const { email, password } = state;
+
+      for (const key in state) {
+         setState({
+            ...state,
+            [key]: "",
+         });
+      }
+
+      login();
+   };
+
+   return (
+      <div className="form-container sign-in-container">
+         <form onSubmit={handleOnSubmit}>
+            <h1>Sign in</h1>
+
+            <input
+               type="email"
+               placeholder="Email"
+               name="email"
+               value={state.email}
+               onChange={handleChange}
+            />
+            <input
+               type="password"
+               name="password"
+               placeholder="Password"
+               value={state.password}
+               onChange={handleChange}
+            />
+            <a href="#">Forgot your password?</a>
+            {isLoading ? (
+               <div className="dots"></div>
+            ) : (
+               <button>Sign In</button>
+            )}
+         </form>
+      </div>
+   );
 }
 
 export default SignIn;
