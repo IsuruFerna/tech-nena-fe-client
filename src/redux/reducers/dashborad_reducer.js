@@ -1,8 +1,8 @@
 import {
-   FETCH_ARTICLE_APPROVED_DATA_FAILURE,
-   FETCH_ARTICLE_APPROVED_DATA_REQUEST,
-   FETCH_ARTICLE_APPROVED_DATA_SUCCESS,
-} from "../actions/articleApproved_action";
+   FETCH_DASHBOARD_ARTICLE_DATA_FAILURE,
+   FETCH_DASHBOARD_ARTICLE_DATA_REQURST,
+   FETCH_DASHBOARD_ARTICLE_DATA_SUCCESS,
+} from "../actions/dashboard_action";
 
 const initialState = {
    articles: [],
@@ -16,16 +16,16 @@ const initialState = {
    error: null,
 };
 
-const approvedArticleReducer = (state = initialState, action) => {
+const dashboardReducer = (state = initialState, action) => {
    switch (action.type) {
-      case FETCH_ARTICLE_APPROVED_DATA_REQUEST:
+      case FETCH_DASHBOARD_ARTICLE_DATA_REQURST:
          return {
             ...state,
             isLoading: true,
             error: null,
          };
 
-      case FETCH_ARTICLE_APPROVED_DATA_SUCCESS:
+      case FETCH_DASHBOARD_ARTICLE_DATA_SUCCESS:
          return {
             ...state,
             articles: action.payload.content,
@@ -38,7 +38,7 @@ const approvedArticleReducer = (state = initialState, action) => {
             isLoading: false,
          };
 
-      case FETCH_ARTICLE_APPROVED_DATA_FAILURE:
+      case FETCH_DASHBOARD_ARTICLE_DATA_FAILURE:
          return {
             ...state,
             error: action.payload,
@@ -50,4 +50,4 @@ const approvedArticleReducer = (state = initialState, action) => {
    }
 };
 
-export default approvedArticleReducer;
+export default dashboardReducer;

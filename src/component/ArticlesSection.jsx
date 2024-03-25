@@ -11,7 +11,7 @@ import {
    Typography,
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchApprovedAriclesData } from "../redux/actions/post_action";
+import { fetchApprovedAriclesData } from "../redux/actions/articleApproved_action";
 import { useNavigate } from "react-router-dom";
 import SpinnerLoading from "../UI/SpinnerLoading";
 import AlertTitle from "@mui/material/AlertTitle";

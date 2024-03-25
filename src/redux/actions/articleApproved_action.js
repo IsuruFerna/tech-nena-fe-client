@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const LOAD_POSTS = "LOAD_POSTS";
 
-// action types
+// action types for approved articles
 export const FETCH_ARTICLE_APPROVED_DATA_REQUEST =
    "FETCH_ARTICLE_APPROVED_DATA_REQUEST";
 export const FETCH_ARTICLE_APPROVED_DATA_SUCCESS =
@@ -10,24 +10,24 @@ export const FETCH_ARTICLE_APPROVED_DATA_SUCCESS =
 export const FETCH_ARTICLE_APPROVED_DATA_FAILURE =
    "FETCH_ARTICLE_APPROVED_DATA_FAILURE";
 
-// action creators
-export const fetchArticleDataRequest = () => ({
+// action creators for approved articles
+export const fetchArticleApprovedDataRequest = () => ({
    type: FETCH_ARTICLE_APPROVED_DATA_REQUEST,
 });
 
-export const fetchArticleDataSuccess = (data) => ({
+export const fetchArticleApprovedDataSuccess = (data) => ({
    type: FETCH_ARTICLE_APPROVED_DATA_SUCCESS,
    payload: data,
 });
 
-export const fetchArticleDataFailure = (error) => ({
+export const fetchArticleApprovedDataFailure = (error) => ({
    type: FETCH_ARTICLE_APPROVED_DATA_FAILURE,
    payload: error,
 });
 
 export const fetchApprovedAriclesData = () => {
    return async (dispatch) => {
-      dispatch(fetchArticleDataRequest());
+      dispatch(fetchArticleApprovedDataRequest());
 
       try {
          const response = await axios.get(
@@ -36,9 +36,9 @@ export const fetchApprovedAriclesData = () => {
          // if (!response.ok) {
          //    throw new Error("Getting approved article error");
          // }
-         dispatch(fetchArticleDataSuccess(response.data));
+         dispatch(fetchArticleApprovedDataSuccess(response.data));
       } catch (error) {
-         dispatch(fetchArticleDataFailure(error.message));
+         dispatch(fetchArticleApprovedDataFailure(error.message));
       }
    };
 };
