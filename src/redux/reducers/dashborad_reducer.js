@@ -11,6 +11,7 @@ const initialState = {
    last: false,
    first: true,
    totalPages: 0,
+   totalElements: 0,
    number: 0,
    isLoading: false,
    error: null,
@@ -34,6 +35,7 @@ const dashboardReducer = (state = initialState, action) => {
             last: action.payload.last,
             first: action.payload.first,
             totalPages: action.payload.totalPages,
+            totalElements: action.payload.totalElements,
             number: action.payload.number,
             isLoading: false,
          };

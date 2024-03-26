@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import PaginationDashboard from "../component/dashboard/PaginationDashboard";
+import DashboardTable from "../component/dashboard/DashboardTable";
 
 const DashboardPage = () => {
    const navigate = useNavigate();
@@ -16,16 +16,7 @@ const DashboardPage = () => {
 
    return (
       <>
-         {/*
-        This example requires updating your template:
-
-        ```
-        <html class="h-full bg-gray-100">
-        <body class="h-full">
-        ```
-      */}
-         <h1>Hello world</h1>
-         <PaginationDashboard />
+         <DashboardTable />
       </>
    );
 };

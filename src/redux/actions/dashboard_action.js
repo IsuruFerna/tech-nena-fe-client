@@ -27,7 +27,8 @@ export const fetchDashboardArticleDataFailure = (error) => ({
 export const fetchDashboardArticleData = (
    page = 0,
    size = 10,
-   order = "id"
+   order = "id",
+   state = "all"
 ) => {
    return async (dispatch) => {
       dispatch(fetchDashboardArticlesDataRequest());
@@ -43,7 +44,9 @@ export const fetchDashboardArticleData = (
                "&size=" +
                size +
                "&order=" +
-               order,
+               order +
+               "&state=" +
+               state,
             {
                headers: {
                   Authorization: "Bearer " + getItem(),
@@ -51,7 +54,10 @@ export const fetchDashboardArticleData = (
                },
             }
          );
-         dispatch(fetchDashboardArticleDataSuccess(response.data));
+
+         const data = await response.data;
+         console.log("this is dispatch data: ", data);
+         dispatch(fetchDashboardArticleDataSuccess(data));
       } catch (error) {
          dispatch(fetchDashboardArticleDataFailure(error.message));
       }
